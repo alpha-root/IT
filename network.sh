@@ -9,30 +9,33 @@
 # useraccount that will be copied to initramfs, additional to the root account
 # empty will try to detect the main user
 # use "none" if you really want no additional account
-username=simon
+username=vhqdeploy
 
 # setup network 
 interface=eth0
-dhcp=true
+dhcp=false
 
 # setup network manually: only used if dhcp=false
-ip_address="192.168.5.200"
-netmask="255.255.255.0"
-gateway="192.168.5.1"       # not really needed in initramfs
-nameserver=""               # srsly, why would you need a nameserver in initramfs?
-extended_routing=""         # routing-line, normally not needed, leave blank
-
-# These are my settings for a hetzner rootserver
-#ip_address="178.63.94.74"
-#netmask="255.255.255.192"
-#gateway="178.63.94.65"
-#extended_routing="route add -net 178.63.94.64 netmask 255.255.255.192 gw 178.63.94.65"
+ip_address="192.168.11.65"
+netmask="255.255.255.128"
+gateway="192.168.11.1"      # not really needed in initramfs
+nameserver="8.8.8.8"        # srsly, why would you need a nameserver in initramfs?
+extended_routing="route add -net 10.1.0.0        netmask 255.255.255.0      gw 10.1.0.10"       # routing-line, vhq-vpn.local
+#extended_routing="route add -net 10.8.0.0        netmask 255.255.255.0      gw 10.1.0.1"        # routing-line, vpn transport network
+#extended_routing="route add -net 192.168.11.0    netmask 255.255.255.128    gw 192.168.11.129"  # routing-line, UA,Kiev server network
+#extended_routing="route add -net 192.168.11.128  netmask 255.255.255.128    gw 192.168.11.129"  # routing-line, UA,Kiev server network
+#extended_routing="route add -net 192.168.12.0    netmask 255.255.255.0      gw 10.1.0.1"        # routing-line, UA,IF network
+#extended_routing="route add -net 192.168.110.0   netmask 255.255.255.0      gw 10.1.0.1"        # routing-line, US,San-Francisco network
+#extended_routing="route add -net 192.168.13.0    netmask 255.255.255.0      gw 10.1.0.1"        # routing-line, CA server network
+#extended_routing="route add -net 192.168.14.0    netmask 255.255.255.0      gw 10.1.0.1"        # routing-line, Asia server network
+#extended_routing="route add -net 192.168.15.0    netmask 255.255.255.0      gw 10.1.0.1"        # routing-line, AU server network
+#extended_routing="route add -net 192.168.16.0    netmask 255.255.255.0      gw 10.1.0.1"        # routing-line, IE server network
 
 # Hostname for greeting line
-hostname="cpad.cnet"
+hostname="debian-template.vhq-vpn.local"
 
 # openvpn support (needs also openvpn.sh hook)
-openvpn=false
+openvpn=true
 
 depends="/bin/loadkeys /bin/chvt /usr/sbin/dropbear /usr/bin/passwd /bin/login"
 needed_directories="/usr/sbin/ /root/.ssh/ /var/run/ /var/tmp/ /var/lock /var/log /etc/dropbear /lib/i386-linux-gnu /lib/x86_64-linux-gnu"
